@@ -541,7 +541,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px;
+            padding: 10px 12px;
             border: 1px solid #3b2d17;
             border-radius: 9px;
             background: rgba(20,15,8,.75);
@@ -564,13 +564,13 @@
 
         
         .history-note {
-            width: 150px;
+            width: 190px;
             box-sizing: border-box;
-            padding: 8px 10px;
+            padding: 9px 11px;
             border: 1px solid #5a461f;
             border-radius: 7px;
             background: rgba(8,8,8,.9);
-            color: #fff;
+            color: #fff !important;
             font-size: 14px;
             outline: none;
             flex-shrink: 0;
@@ -586,7 +586,7 @@
         }
 
 .history-info { flex: 1; min-width: 0; }
-        .history-class { color: #ffd700; font-size: 17px; font-weight: bold; }
+        .history-class { color: #ffd700; font-size: 17px; font-weight: bold; }\n        .history-dash { color: #777; }
         .history-spec { color: #fff; margin-top: 2px; }
         .history-date { color: #777; font-size: 11px; margin-top: 3px; }
         .history-empty { color: #999; text-align: center; padding: 18px; }
@@ -637,7 +637,7 @@
             }
 
             .history-note {
-                width: 100%;
+                width: calc(100% - 40px);
                 margin-left: 40px;
             }
         }
@@ -955,6 +955,15 @@ function loadHistory() {
 
 let spinHistory = loadHistory();
 
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function saveHistory() {
     try {
         localStorage.setItem(historyKey, JSON.stringify(spinHistory));
@@ -988,11 +997,8 @@ function renderHistory() {
             <div class="history-number">${index + 1}</div>
             <img src="${entry.classIcon}" alt="${entry.className} icon" class="history-icon">
             <div class="history-info">
-                <div class="history-class">${entry.className}</div>
-                <div class="history-spec">
-                    ${entry.specName}
-                </div>
-                <div class="history-date">${entry.date}</div>
+                <div class="history-class">${escapeHtml(entry.className)} <span class="history-dash">—</span> <span class="history-spec">${escapeHtml(entry.specName)}</span></div>
+                <div class="history-date">${escapeHtml(entry.date)}</div>
             </div>
             <input
                 type="text"
