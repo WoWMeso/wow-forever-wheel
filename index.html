@@ -458,6 +458,126 @@
         }
 
         /* ==========================================
+           ICONS & HISTORY
+        ========================================== */
+
+        .result-with-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .result-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 6px;
+            border: 2px solid #d5af37;
+            box-shadow: 0 2px 8px #000;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+
+        #specResult .result-with-icon {
+            gap: 12px;
+        }
+
+        .history-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .history-button,
+        .history-clear-button {
+            padding: 10px 18px;
+            border: 1px solid #d5af37;
+            border-radius: 8px;
+            background: #21190d;
+            color: #ffd700;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .history-clear-button {
+            border-color: #5c4522;
+            color: #aaa;
+        }
+
+        .history-section {
+            display: none;
+            margin: 18px auto 0;
+            max-width: 700px;
+            padding: 18px;
+            border: 2px solid #5c4522;
+            border-radius: 12px;
+            background: rgba(0,0,0,.45);
+            text-align: left;
+        }
+
+        .history-section.open {
+            display: block;
+        }
+
+        .history-title {
+            color: #ffd700;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .history-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .history-entry {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border: 1px solid #3b2d17;
+            border-radius: 9px;
+            background: rgba(20,15,8,.75);
+        }
+
+        .history-number {
+            width: 28px;
+            color: #777;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .history-icon,
+        .history-spec-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 6px;
+            border: 1px solid #806529;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .history-spec-icon {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        .history-info { flex: 1; min-width: 0; }
+        .history-class { color: #ffd700; font-size: 17px; font-weight: bold; }
+        .history-spec { color: #fff; margin-top: 2px; }
+        .history-date { color: #777; font-size: 11px; margin-top: 3px; }
+        .history-empty { color: #999; text-align: center; padding: 18px; }
+
+        /* ==========================================
            MOBILE
         ========================================== */
 
@@ -631,6 +751,16 @@
 
     </div>
 
+    <div class="history-controls">
+        <button class="history-button" id="historyToggle" type="button">📜 Spin History</button>
+        <button class="history-clear-button" id="historyClear" type="button">Clear History</button>
+    </div>
+
+    <div id="historySection" class="history-section">
+        <div class="history-title">📜 Spin History</div>
+        <div id="historyPanel" class="history-panel"></div>
+    </div>
+
     <div class="classes">
 
         Paladin • Hunter • Rogue • Priest • Shaman
@@ -650,6 +780,7 @@ const classes = [
 
     {
         name: "Paladin",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_paladin.jpg",
         color: "#FF69B4",
         specs: [
             "Holy",
@@ -660,6 +791,7 @@ const classes = [
 
     {
         name: "Hunter",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_hunter.jpg",
         color: "#ABD473",
         specs: [
             "Beast Mastery",
@@ -670,6 +802,7 @@ const classes = [
 
     {
         name: "Rogue",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_rogue.jpg",
         color: "#FFF569",
         specs: [
             "Assassination",
@@ -680,6 +813,7 @@ const classes = [
 
     {
         name: "Priest",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_priest.jpg",
         color: "#FFFFFF",
         specs: [
             "Discipline",
@@ -690,6 +824,7 @@ const classes = [
 
     {
         name: "Shaman",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_shaman.jpg",
         color: "#0070DE",
         specs: [
             "Elemental",
@@ -700,6 +835,7 @@ const classes = [
 
     {
         name: "Mage",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_mage.jpg",
         color: "#69CCF0",
         specs: [
             "Arcane",
@@ -710,6 +846,7 @@ const classes = [
 
     {
         name: "Warlock",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_warlock.jpg",
         color: "#9482C9",
         specs: [
             "Affliction",
@@ -720,6 +857,7 @@ const classes = [
 
     {
         name: "Druid",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_druid.jpg",
         color: "#FF7D0A",
         specs: [
             "Balance",
@@ -731,6 +869,7 @@ const classes = [
 
     {
         name: "Warrior",
+        icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg",
         color: "#8B4513",
         specs: [
             "Arms",
@@ -740,6 +879,116 @@ const classes = [
     }
 
 ];
+
+
+/* =====================================================
+   CLASS & SPEC ICONS
+===================================================== */
+
+const specIcons = {
+    "Holy": "https://wow.zamimg.com/images/wow/icons/large/holy_shock.jpg",
+    "Protection": "https://wow.zamimg.com/images/wow/icons/large/shield_of_the_righteous.jpg",
+    "Retribution": "https://wow.zamimg.com/images/wow/icons/large/crusader_strike.jpg",
+    "Beast Mastery": "https://wow.zamimg.com/images/wow/icons/large/beast_cleave.jpg",
+    "Marksmanship": "https://wow.zamimg.com/images/wow/icons/large/aimed_shot.jpg",
+    "Survival": "https://wow.zamimg.com/images/wow/icons/large/wildfire_bomb.jpg",
+    "Assassination": "https://wow.zamimg.com/images/wow/icons/large/mutilate.jpg",
+    "Combat": "https://wow.zamimg.com/images/wow/icons/large/sinister_strike.jpg",
+    "Subtlety": "https://wow.zamimg.com/images/wow/icons/large/shadowstrike.jpg",
+    "Discipline": "https://wow.zamimg.com/images/wow/icons/large/power_word_shield.jpg",
+    "Shadow": "https://wow.zamimg.com/images/wow/icons/large/shadow_word_pain.jpg",
+    "Elemental": "https://wow.zamimg.com/images/wow/icons/large/lightning_bolt.jpg",
+    "Enhancement": "https://wow.zamimg.com/images/wow/icons/large/stormstrike.jpg",
+    "Restoration": "https://wow.zamimg.com/images/wow/icons/large/healing_stream.jpg",
+    "Arcane": "https://wow.zamimg.com/images/wow/icons/large/arcane_blast.jpg",
+    "Fire": "https://wow.zamimg.com/images/wow/icons/large/fireball.jpg",
+    "Frost": "https://wow.zamimg.com/images/wow/icons/large/frostbolt.jpg",
+    "Affliction": "https://wow.zamimg.com/images/wow/icons/large/unstable_affliction.jpg",
+    "Demonology": "https://wow.zamimg.com/images/wow/icons/large/hand_of_guldan.jpg",
+    "Destruction": "https://wow.zamimg.com/images/wow/icons/large/chaos_bolt.jpg",
+    "Balance": "https://wow.zamimg.com/images/wow/icons/large/starsurge.jpg",
+    "Feral": "https://wow.zamimg.com/images/wow/icons/large/rake.jpg",
+    "Guardian": "https://wow.zamimg.com/images/wow/icons/large/ironfur.jpg",
+    "Arms": "https://wow.zamimg.com/images/wow/icons/large/mortal_strike.jpg",
+    "Fury": "https://wow.zamimg.com/images/wow/icons/large/raging_blow.jpg"
+};
+
+const historyKey = "wowForeverRouletteHistory";
+const maxHistoryEntries = 25;
+
+function iconUrlForClass(classData) {
+    return classData && classData.icon ? classData.icon : "";
+}
+
+function iconUrlForSpec(spec) {
+    return specIcons[spec] || "";
+}
+
+function iconMarkup(url, alt, size = 42) {
+    if (!url) return "";
+    return `<img src="${url}" alt="${alt} icon" class="result-icon" width="${size}" height="${size}" loading="eager">`;
+}
+
+function loadHistory() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(historyKey) || "[]");
+        return Array.isArray(saved) ? saved.slice(0, maxHistoryEntries) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+let spinHistory = loadHistory();
+
+function saveHistory() {
+    try {
+        localStorage.setItem(historyKey, JSON.stringify(spinHistory));
+    } catch (e) {}
+}
+
+function addHistoryEntry(classData, spec) {
+    spinHistory.unshift({
+        className: classData.name,
+        classIcon: iconUrlForClass(classData),
+        specName: spec,
+        specIcon: iconUrlForSpec(spec),
+        date: new Date().toLocaleString()
+    });
+    spinHistory = spinHistory.slice(0, maxHistoryEntries);
+    saveHistory();
+    renderHistory();
+}
+
+function renderHistory() {
+    let panel = document.getElementById("historyPanel");
+    if (!panel) return;
+
+    if (spinHistory.length === 0) {
+        panel.innerHTML = '<div class="history-empty">No spins yet. Your results will appear here.</div>';
+        return;
+    }
+
+    panel.innerHTML = spinHistory.map((entry, index) => `
+        <div class="history-entry">
+            <div class="history-number">${index + 1}</div>
+            <img src="${entry.classIcon}" alt="${entry.className} icon" class="history-icon">
+            <div class="history-info">
+                <div class="history-class">${entry.className}</div>
+                <div class="history-spec">
+                    <img src="${entry.specIcon}" alt="${entry.specName} icon" class="history-spec-icon">
+                    ${entry.specName}
+                </div>
+                <div class="history-date">${entry.date}</div>
+            </div>
+        </div>
+    `).join("");
+}
+
+function clearHistory() {
+    spinHistory = [];
+    saveHistory();
+    renderHistory();
+}
 
 
 /* =====================================================
@@ -1112,8 +1361,8 @@ function determineClassWinner() {
     selectedClass =
         classes[index];
 
-    result.textContent =
-        selectedClass.name;
+    result.innerHTML =
+        `<span class="result-with-icon">${iconMarkup(iconUrlForClass(selectedClass), selectedClass.name, 48)}<span>${selectedClass.name}</span></span>`;
 
     result.animate(
         [
@@ -1657,8 +1906,8 @@ function determineSpecWinner() {
     const selectedSpec =
         specs[index];
 
-    specResult.textContent =
-        selectedSpec;
+    specResult.innerHTML =
+        `<span class="result-with-icon">${iconMarkup(iconUrlForSpec(selectedSpec), selectedSpec, 48)}<span>${selectedSpec}</span></span>`;
 
     /*
      * Final result
@@ -1672,6 +1921,8 @@ function determineSpecWinner() {
 
     finalResult.style.display =
         "block";
+
+    addHistoryEntry(selectedClass, selectedSpec);
 
     finalResult.animate(
         [
@@ -1745,6 +1996,28 @@ specCenterSpin.addEventListener(
     spinSpecWheel
 );
 
+
+/* =====================================================
+   HISTORY CONTROLS
+===================================================== */
+
+const historyToggle = document.getElementById("historyToggle");
+const historySection = document.getElementById("historySection");
+const historyClear = document.getElementById("historyClear");
+
+historyToggle.addEventListener("click", () => {
+    historySection.classList.toggle("open");
+    historyToggle.textContent = historySection.classList.contains("open")
+        ? "📜 Hide History"
+        : "📜 Spin History";
+});
+
+historyClear.addEventListener("click", () => {
+    if (spinHistory.length === 0) return;
+    if (confirm("Clear all saved roulette history?")) clearHistory();
+});
+
+renderHistory();
 
 /* =====================================================
    INITIAL DRAW
