@@ -35,7 +35,6 @@
                 sans-serif;
         }
 
-
         .container {
             text-align: center;
 
@@ -44,7 +43,6 @@
 
             padding: 30px 20px 60px;
         }
-
 
         h1 {
             margin: 0 0 8px;
@@ -57,13 +55,11 @@
                 0 3px 8px #000;
         }
 
-
         .subtitle {
             color: #c9c9c9;
 
             margin-bottom: 25px;
         }
-
 
         /* ==========================================
            CLASS WHEEL
@@ -80,7 +76,6 @@
             margin: 0 auto 30px;
         }
 
-
         canvas {
             width: 100%;
             height: 100%;
@@ -88,14 +83,12 @@
             border-radius: 50%;
         }
 
-
         #wheel {
             box-shadow:
                 0 0 0 8px #5c4522,
                 0 0 0 12px #17120b,
                 0 15px 50px rgba(0, 0, 0, 0.8);
         }
-
 
         /* ==========================================
            POINTER
@@ -129,7 +122,6 @@
 
             z-index: 10;
         }
-
 
         /* ==========================================
            CENTER BUTTON
@@ -170,7 +162,6 @@
             z-index: 5;
         }
 
-
         .center-button:hover {
             background: #292014;
 
@@ -179,12 +170,10 @@
                 scale(1.05);
         }
 
-
         .center-button:disabled {
             cursor: not-allowed;
             opacity: 0.6;
         }
-
 
         /* ==========================================
            SPIN BUTTON
@@ -216,7 +205,6 @@
                 0.15s;
         }
 
-
         .spin-button:hover {
             background:
                 linear-gradient(
@@ -229,12 +217,10 @@
                 rgba(255, 215, 0, 0.25);
         }
 
-
         .spin-button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
 
         /* ==========================================
            CLASS RESULT
@@ -257,13 +243,11 @@
                 rgba(0, 0, 0, 0.45);
         }
 
-
         .result-label {
             color: #aaa;
 
             font-size: 14px;
         }
-
 
         #result {
             color: #ffd700;
@@ -273,7 +257,6 @@
 
             margin-top: 5px;
         }
-
 
         /* ==========================================
            SPEC SECTION
@@ -290,7 +273,6 @@
                 2px solid #5c4522;
         }
 
-
         #specTitle {
             color: #ffd700;
 
@@ -302,13 +284,11 @@
                 0 2px 5px #000;
         }
 
-
         #specSubtitle {
             color: #aaa;
 
             margin-bottom: 20px;
         }
-
 
         /* ==========================================
            SPEC WHEEL
@@ -326,7 +306,6 @@
                 0 auto 25px;
         }
 
-
         #specWheel {
             width: 100%;
             height: 100%;
@@ -339,7 +318,6 @@
                 0 15px 40px
                 rgba(0, 0, 0, 0.7);
         }
-
 
         .spec-pointer {
             position: absolute;
@@ -370,7 +348,6 @@
             z-index: 10;
         }
 
-
         .spec-center-button {
             position: absolute;
 
@@ -400,19 +377,16 @@
             z-index: 5;
         }
 
-
         .spec-center-button:hover {
             transform:
                 translate(-50%, -50%)
                 scale(1.05);
         }
 
-
         .spec-center-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
-
 
         /* ==========================================
            FINAL RESULT
@@ -439,7 +413,6 @@
                 rgba(255, 215, 0, 0.15);
         }
 
-
         .final-label {
             color: #aaa;
 
@@ -448,14 +421,12 @@
             margin-bottom: 8px;
         }
 
-
         #finalClass {
             color: #ffd700;
 
             font-size: 30px;
             font-weight: bold;
         }
-
 
         #finalSpec {
             color: #fff;
@@ -466,7 +437,6 @@
             margin-top: 5px;
         }
 
-
         .classes {
             margin-top: 30px;
 
@@ -474,7 +444,6 @@
 
             font-size: 13px;
         }
-
 
         /* ==========================================
            MOBILE
@@ -486,16 +455,13 @@
                 font-size: 32px;
             }
 
-
             .wheel-container {
                 width: 90vw;
             }
 
-
             .spec-wheel-container {
                 width: 82vw;
             }
-
 
             .center-button {
                 width: 70px;
@@ -504,21 +470,17 @@
                 font-size: 14px;
             }
 
-
             #result {
                 font-size: 26px;
             }
-
 
             #specTitle {
                 font-size: 24px;
             }
 
-
             #finalClass {
                 font-size: 25px;
             }
-
 
             #finalSpec {
                 font-size: 22px;
@@ -528,21 +490,17 @@
     </style>
 </head>
 
-
 <body>
 
 <div class="container">
-
 
     <h1>
         ⚔ WoW Forever ⚔
     </h1>
 
-
     <div class="subtitle">
         Spin the wheel and let fate choose your class and specialization.
     </div>
-
 
     <!-- ==========================================
          CLASS WHEEL
@@ -568,7 +526,6 @@
 
     </div>
 
-
     <button
         class="spin-button"
         id="spinButton">
@@ -576,7 +533,6 @@
         🎲 Choose My Class
 
     </button>
-
 
     <div class="result">
 
@@ -590,7 +546,6 @@
 
     </div>
 
-
     <!-- ==========================================
          SPEC WHEEL
     =========================================== -->
@@ -601,23 +556,19 @@
             Choose Your Specialization
         </div>
 
-
         <div id="specSubtitle">
             Spin to determine your specialization.
         </div>
 
-
         <div class="spec-wheel-container">
 
             <div class="spec-pointer"></div>
-
 
             <canvas
                 id="specWheel"
                 width="600"
                 height="600">
             </canvas>
-
 
             <button
                 class="spec-center-button"
@@ -628,7 +579,6 @@
             </button>
 
         </div>
-
 
         <!-- Spec result -->
 
@@ -643,7 +593,6 @@
             </div>
 
         </div>
-
 
         <!-- Final result -->
 
@@ -665,7 +614,6 @@
 
     </div>
 
-
     <div class="classes">
 
         Paladin • Hunter • Rogue • Priest • Shaman
@@ -675,22 +623,17 @@
 
 </div>
 
-
 <script>
-
 
 /* =====================================================
    CLASS DATA
 ===================================================== */
 
-
 const classes = [
 
     {
         name: "Paladin",
-
         color: "#C79C6E",
-
         specs: [
             "Holy",
             "Protection",
@@ -698,12 +641,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Hunter",
-
         color: "#ABD473",
-
         specs: [
             "Beast Mastery",
             "Marksmanship",
@@ -711,12 +651,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Rogue",
-
         color: "#FFF569",
-
         specs: [
             "Assassination",
             "Combat",
@@ -724,12 +661,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Priest",
-
         color: "#FFFFFF",
-
         specs: [
             "Discipline",
             "Holy",
@@ -737,12 +671,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Shaman",
-
         color: "#0070DE",
-
         specs: [
             "Elemental",
             "Enhancement",
@@ -750,12 +681,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Mage",
-
         color: "#69CCF0",
-
         specs: [
             "Arcane",
             "Fire",
@@ -763,12 +691,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Warlock",
-
         color: "#9482C9",
-
         specs: [
             "Affliction",
             "Demonology",
@@ -776,12 +701,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Druid",
-
         color: "#FF7D0A",
-
         specs: [
             "Balance",
             "Feral",
@@ -790,16 +712,9 @@ const classes = [
         ]
     },
 
-
     {
         name: "Warrior",
-
-        /*
-         * Brown Warrior background
-         */
-
         color: "#8B4513",
-
         specs: [
             "Arms",
             "Fury",
@@ -814,34 +729,20 @@ const classes = [
    CLASS WHEEL VARIABLES
 ===================================================== */
 
-
 const canvas =
-    document.getElementById(
-        "wheel"
-    );
-
+    document.getElementById("wheel");
 
 const ctx =
     canvas.getContext("2d");
 
-
 const spinButton =
-    document.getElementById(
-        "spinButton"
-    );
-
+    document.getElementById("spinButton");
 
 const centerSpin =
-    document.getElementById(
-        "centerSpin"
-    );
-
+    document.getElementById("centerSpin");
 
 const result =
-    document.getElementById(
-        "result"
-    );
-
+    document.getElementById("result");
 
 let classRotation = 0;
 
@@ -854,7 +755,6 @@ let selectedClass = null;
    DRAW CLASS WHEEL
 ===================================================== */
 
-
 function drawClassWheel() {
 
     const centerX =
@@ -866,7 +766,6 @@ function drawClassWheel() {
     const radius =
         canvas.width / 2;
 
-
     ctx.clearRect(
         0,
         0,
@@ -874,11 +773,9 @@ function drawClassWheel() {
         canvas.height
     );
 
-
     const slice =
         (Math.PI * 2) /
         classes.length;
-
 
     classes.forEach(
         (classData, i) => {
@@ -888,11 +785,9 @@ function drawClassWheel() {
                 i * slice -
                 Math.PI / 2;
 
-
             const endAngle =
                 startAngle +
                 slice;
-
 
             /* Slice */
 
@@ -913,12 +808,10 @@ function drawClassWheel() {
 
             ctx.closePath();
 
-
             ctx.fillStyle =
                 classData.color;
 
             ctx.fill();
-
 
             /* Border */
 
@@ -929,46 +822,36 @@ function drawClassWheel() {
 
             ctx.stroke();
 
-
             /* Text position */
 
             const textAngle =
                 startAngle +
                 slice / 2;
 
-
             const textRadius =
                 radius * 0.67;
-
 
             const textX =
                 centerX +
                 Math.cos(textAngle) *
                 textRadius;
 
-
             const textY =
                 centerY +
                 Math.sin(textAngle) *
                 textRadius;
 
-
             ctx.save();
-
 
             ctx.translate(
                 textX,
                 textY
             );
 
-
             let textRotation =
                 textAngle;
 
-
-            /*
-             * Keep text upright
-             */
+            /* Keep text upright */
 
             if (
                 textRotation >
@@ -979,13 +862,12 @@ function drawClassWheel() {
 
                 textRotation +=
                     Math.PI;
-            }
 
+            }
 
             ctx.rotate(
                 textRotation
             );
-
 
             ctx.font =
                 "bold 25px Arial";
@@ -996,10 +878,7 @@ function drawClassWheel() {
             ctx.textBaseline =
                 "middle";
 
-
-            /*
-             * White outline
-             */
+            /* White outline */
 
             ctx.lineWidth = 6;
 
@@ -1012,10 +891,7 @@ function drawClassWheel() {
                 0
             );
 
-
-            /*
-             * Black text
-             */
+            /* Black text */
 
             ctx.fillStyle =
                 "#000000";
@@ -1026,12 +902,10 @@ function drawClassWheel() {
                 0
             );
 
-
             ctx.restore();
 
         }
     );
-
 
     /* Center */
 
@@ -1045,12 +919,10 @@ function drawClassWheel() {
         Math.PI * 2
     );
 
-
     ctx.fillStyle =
         "#17120b";
 
     ctx.fill();
-
 
     ctx.strokeStyle =
         "#d5af37";
@@ -1066,15 +938,12 @@ function drawClassWheel() {
    SPIN CLASS WHEEL
 ===================================================== */
 
-
 function spinClassWheel() {
 
     if (classSpinning)
         return;
 
-
     classSpinning = true;
-
 
     spinButton.disabled =
         true;
@@ -1082,10 +951,8 @@ function spinClassWheel() {
     centerSpin.disabled =
         true;
 
-
     result.textContent =
         "Spinning...";
-
 
     /*
      * Hide previous spec wheel
@@ -1096,36 +963,29 @@ function spinClassWheel() {
     ).style.display =
         "none";
 
-
     const fullSpins =
         5 +
         Math.floor(
             Math.random() * 5
         );
 
-
     const randomAngle =
         Math.random() *
         Math.PI * 2;
 
-
     const startRotation =
         classRotation;
-
 
     const targetRotation =
         classRotation +
         fullSpins * Math.PI * 2 +
         randomAngle;
 
-
     const duration =
         4500;
 
-
     const startTime =
         performance.now();
-
 
     function animate(
         currentTime
@@ -1135,13 +995,11 @@ function spinClassWheel() {
             currentTime -
             startTime;
 
-
         const progress =
             Math.min(
                 elapsed / duration,
                 1
             );
-
 
         /*
          * Ease-out animation
@@ -1154,7 +1012,6 @@ function spinClassWheel() {
                 3
             );
 
-
         classRotation =
             startRotation +
             (
@@ -1162,9 +1019,7 @@ function spinClassWheel() {
                 startRotation
             ) * eased;
 
-
         drawClassWheel();
-
 
         if (
             progress < 1
@@ -1179,13 +1034,10 @@ function spinClassWheel() {
             classRotation %=
                 Math.PI * 2;
 
-
             determineClassWinner();
-
 
             classSpinning =
                 false;
-
 
             spinButton.disabled =
                 false;
@@ -1196,7 +1048,6 @@ function spinClassWheel() {
         }
 
     }
-
 
     requestAnimationFrame(
         animate
@@ -1209,13 +1060,11 @@ function spinClassWheel() {
    DETERMINE CLASS
 ===================================================== */
 
-
 function determineClassWinner() {
 
     let normalizedRotation =
         classRotation %
         (Math.PI * 2);
-
 
     if (
         normalizedRotation < 0
@@ -1226,7 +1075,6 @@ function determineClassWinner() {
 
     }
 
-
     const pointerAngle =
         (
             Math.PI * 2 -
@@ -1234,11 +1082,9 @@ function determineClassWinner() {
         ) %
         (Math.PI * 2);
 
-
     const slice =
         (Math.PI * 2) /
         classes.length;
-
 
     const index =
         Math.floor(
@@ -1246,14 +1092,11 @@ function determineClassWinner() {
             slice
         );
 
-
     selectedClass =
         classes[index];
 
-
     result.textContent =
         selectedClass.name;
-
 
     result.animate(
         [
@@ -1277,9 +1120,8 @@ function determineClassWinner() {
         }
     );
 
-
     /*
-     * Show the appropriate
+     * Show and prepare the appropriate
      * specialization wheel.
      */
 
@@ -1287,9 +1129,24 @@ function determineClassWinner() {
         selectedClass
     );
 
-    // Automatically spin the specialization wheel immediately
-    // after the class wheel finishes.
-    spinSpecWheel();
+    /*
+     * IMPORTANT:
+     * Wait until the browser has rendered the
+     * specialization wheel before starting it.
+     *
+     * This makes the automatic spin reliable
+     * on GitHub Pages as well as locally.
+     */
+
+    requestAnimationFrame(() => {
+
+        requestAnimationFrame(() => {
+
+            spinSpecWheel();
+
+        });
+
+    });
 
 }
 
@@ -1298,60 +1155,50 @@ function determineClassWinner() {
    SPEC WHEEL VARIABLES
 ===================================================== */
 
-
 const specCanvas =
     document.getElementById(
         "specWheel"
     );
-
 
 const specCtx =
     specCanvas.getContext(
         "2d"
     );
 
-
 const specSection =
     document.getElementById(
         "specSection"
     );
-
 
 const specTitle =
     document.getElementById(
         "specTitle"
     );
 
-
 const specResult =
     document.getElementById(
         "specResult"
     );
-
 
 const specCenterSpin =
     document.getElementById(
         "specCenterSpin"
     );
 
-
 const finalResult =
     document.getElementById(
         "finalResult"
     );
-
 
 const finalClass =
     document.getElementById(
         "finalClass"
     );
 
-
 const finalSpec =
     document.getElementById(
         "finalSpec"
     );
-
 
 let specs = [];
 
@@ -1364,7 +1211,6 @@ let specSpinning = false;
    SET UP SPEC WHEEL
 ===================================================== */
 
-
 function setupSpecWheel(
     classData
 ) {
@@ -1372,32 +1218,30 @@ function setupSpecWheel(
     specs =
         classData.specs;
 
-
     specRotation = 0;
-
 
     specResult.textContent =
         "?";
 
-
     finalResult.style.display =
         "none";
-
 
     specTitle.textContent =
         `${classData.name} — Choose Your Specialization`;
 
-
     specSection.style.display =
         "block";
 
+    /*
+     * Draw the wheel BEFORE attempting
+     * to automatically spin it.
+     */
 
     drawSpecWheel();
 
-
     /*
-     * Automatically move the
-     * page down to the new wheel.
+     * Automatically move the page down
+     * to the new wheel.
      */
 
     setTimeout(
@@ -1424,8 +1268,14 @@ function setupSpecWheel(
    DRAW SPEC WHEEL
 ===================================================== */
 
-
 function drawSpecWheel() {
+
+    if (
+        !specs ||
+        specs.length === 0
+    ) {
+        return;
+    }
 
     const centerX =
         specCanvas.width / 2;
@@ -1436,7 +1286,6 @@ function drawSpecWheel() {
     const radius =
         specCanvas.width / 2;
 
-
     specCtx.clearRect(
         0,
         0,
@@ -1444,11 +1293,9 @@ function drawSpecWheel() {
         specCanvas.height
     );
 
-
     const slice =
         (Math.PI * 2) /
         specs.length;
-
 
     specs.forEach(
         (spec, i) => {
@@ -1458,11 +1305,9 @@ function drawSpecWheel() {
                 i * slice -
                 Math.PI / 2;
 
-
             const endAngle =
                 startAngle +
                 slice;
-
 
             /* Slice */
 
@@ -1483,7 +1328,6 @@ function drawSpecWheel() {
 
             specCtx.closePath();
 
-
             /*
              * Give every spec a
              * slightly different
@@ -1501,16 +1345,13 @@ function drawSpecWheel() {
 
             ];
 
-
             specCtx.fillStyle =
                 specColors[
                     i %
                     specColors.length
                 ];
 
-
             specCtx.fill();
-
 
             /* Border */
 
@@ -1521,42 +1362,34 @@ function drawSpecWheel() {
 
             specCtx.stroke();
 
-
             /* Text */
 
             const textAngle =
                 startAngle +
                 slice / 2;
 
-
             const textRadius =
                 radius * 0.62;
-
 
             const textX =
                 centerX +
                 Math.cos(textAngle) *
                 textRadius;
 
-
             const textY =
                 centerY +
                 Math.sin(textAngle) *
                 textRadius;
 
-
             specCtx.save();
-
 
             specCtx.translate(
                 textX,
                 textY
             );
 
-
             let textRotation =
                 textAngle;
-
 
             if (
                 textRotation >
@@ -1570,11 +1403,9 @@ function drawSpecWheel() {
 
             }
 
-
             specCtx.rotate(
                 textRotation
             );
-
 
             /*
              * Smaller font for
@@ -1582,7 +1413,6 @@ function drawSpecWheel() {
              */
 
             let fontSize = 30;
-
 
             if (
                 spec.length > 12
@@ -1592,10 +1422,8 @@ function drawSpecWheel() {
 
             }
 
-
             specCtx.font =
                 `bold ${fontSize}px Arial`;
-
 
             specCtx.textAlign =
                 "center";
@@ -1603,16 +1431,12 @@ function drawSpecWheel() {
             specCtx.textBaseline =
                 "middle";
 
-
-            /*
-             * White outline
-             */
+            /* White outline */
 
             specCtx.lineWidth = 7;
 
             specCtx.strokeStyle =
                 "#ffffff";
-
 
             specCtx.strokeText(
                 spec,
@@ -1620,14 +1444,10 @@ function drawSpecWheel() {
                 0
             );
 
-
-            /*
-             * Black text
-             */
+            /* Black text */
 
             specCtx.fillStyle =
                 "#000000";
-
 
             specCtx.fillText(
                 spec,
@@ -1635,12 +1455,10 @@ function drawSpecWheel() {
                 0
             );
 
-
             specCtx.restore();
 
         }
     );
-
 
     /* Center */
 
@@ -1654,12 +1472,10 @@ function drawSpecWheel() {
         Math.PI * 2
     );
 
-
     specCtx.fillStyle =
         "#17120b";
 
     specCtx.fill();
-
 
     specCtx.strokeStyle =
         "#d5af37";
@@ -1675,11 +1491,11 @@ function drawSpecWheel() {
    SPIN SPEC WHEEL
 ===================================================== */
 
-
 function spinSpecWheel() {
 
     if (
         specSpinning ||
+        !specs ||
         specs.length === 0
     ) {
 
@@ -1687,22 +1503,17 @@ function spinSpecWheel() {
 
     }
 
-
     specSpinning =
         true;
-
 
     specCenterSpin.disabled =
         true;
 
-
     specResult.textContent =
         "Spinning...";
 
-
     finalResult.style.display =
         "none";
-
 
     const fullSpins =
         5 +
@@ -1710,29 +1521,23 @@ function spinSpecWheel() {
             Math.random() * 4
         );
 
-
     const randomAngle =
         Math.random() *
         Math.PI * 2;
 
-
     const startRotation =
         specRotation;
-
 
     const targetRotation =
         specRotation +
         fullSpins * Math.PI * 2 +
         randomAngle;
 
-
     const duration =
         4000;
 
-
     const startTime =
         performance.now();
-
 
     function animate(
         currentTime
@@ -1742,13 +1547,11 @@ function spinSpecWheel() {
             currentTime -
             startTime;
 
-
         const progress =
             Math.min(
                 elapsed / duration,
                 1
             );
-
 
         const eased =
             1 -
@@ -1757,7 +1560,6 @@ function spinSpecWheel() {
                 3
             );
 
-
         specRotation =
             startRotation +
             (
@@ -1765,9 +1567,7 @@ function spinSpecWheel() {
                 startRotation
             ) * eased;
 
-
         drawSpecWheel();
-
 
         if (
             progress < 1
@@ -1782,13 +1582,10 @@ function spinSpecWheel() {
             specRotation %=
                 Math.PI * 2;
 
-
             determineSpecWinner();
-
 
             specSpinning =
                 false;
-
 
             specCenterSpin.disabled =
                 false;
@@ -1796,7 +1593,6 @@ function spinSpecWheel() {
         }
 
     }
-
 
     requestAnimationFrame(
         animate
@@ -1809,13 +1605,11 @@ function spinSpecWheel() {
    DETERMINE SPEC WINNER
 ===================================================== */
 
-
 function determineSpecWinner() {
 
     let normalizedRotation =
         specRotation %
         (Math.PI * 2);
-
 
     if (
         normalizedRotation < 0
@@ -1826,7 +1620,6 @@ function determineSpecWinner() {
 
     }
 
-
     const pointerAngle =
         (
             Math.PI * 2 -
@@ -1834,11 +1627,9 @@ function determineSpecWinner() {
         ) %
         (Math.PI * 2);
 
-
     const slice =
         (Math.PI * 2) /
         specs.length;
-
 
     const index =
         Math.floor(
@@ -1846,14 +1637,11 @@ function determineSpecWinner() {
             slice
         );
 
-
     const selectedSpec =
         specs[index];
 
-
     specResult.textContent =
         selectedSpec;
-
 
     /*
      * Final result
@@ -1862,14 +1650,11 @@ function determineSpecWinner() {
     finalClass.textContent =
         selectedClass.name;
 
-
     finalSpec.textContent =
         selectedSpec;
 
-
     finalResult.style.display =
         "block";
-
 
     finalResult.animate(
         [
@@ -1900,7 +1685,6 @@ function determineSpecWinner() {
         }
     );
 
-
     /*
      * Scroll to final result
      */
@@ -1929,18 +1713,15 @@ function determineSpecWinner() {
    BUTTON EVENTS
 ===================================================== */
 
-
 spinButton.addEventListener(
     "click",
     spinClassWheel
 );
 
-
 centerSpin.addEventListener(
     "click",
     spinClassWheel
 );
-
 
 specCenterSpin.addEventListener(
     "click",
@@ -1951,7 +1732,6 @@ specCenterSpin.addEventListener(
 /* =====================================================
    INITIAL DRAW
 ===================================================== */
-
 
 drawClassWheel();
 
