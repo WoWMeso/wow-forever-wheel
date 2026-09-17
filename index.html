@@ -562,7 +562,30 @@
             flex-shrink: 0;
         }
 
-        .history-info { flex: 1; min-width: 0; }
+        
+        .history-note {
+            width: 150px;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            border: 1px solid #5a461f;
+            border-radius: 7px;
+            background: rgba(8,8,8,.9);
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            flex-shrink: 0;
+        }
+
+        .history-note::placeholder {
+            color: #777;
+        }
+
+        .history-note:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 6px rgba(255,215,0,.2);
+        }
+
+.history-info { flex: 1; min-width: 0; }
         .history-class { color: #ffd700; font-size: 17px; font-weight: bold; }
         .history-spec { color: #fff; margin-top: 2px; }
         .history-date { color: #777; font-size: 11px; margin-top: 3px; }
@@ -607,6 +630,15 @@
 
             #finalSpec {
                 font-size: 22px;
+            }
+
+            .history-entry {
+                flex-wrap: wrap;
+            }
+
+            .history-note {
+                width: 100%;
+                margin-left: 40px;
             }
         }
 
@@ -934,7 +966,8 @@ function addHistoryEntry(classData, spec) {
         className: classData.name,
         classIcon: iconUrlForClass(classData),
         specName: spec,
-        date: new Date().toLocaleString()
+        date: new Date().toLocaleString(),
+        note: ""
     });
     spinHistory = spinHistory.slice(0, maxHistoryEntries);
     saveHistory();
@@ -961,8 +994,26 @@ function renderHistory() {
                 </div>
                 <div class="history-date">${entry.date}</div>
             </div>
+            <input
+                type="text"
+                class="history-note"
+                data-history-index="${index}"
+                value="${escapeHtml(entry.note || "")}"
+                placeholder="Who's spin?"
+                maxlength="40"
+                aria-label="Note for spin ${index + 1}">
         </div>
     `).join("");
+
+    panel.querySelectorAll(".history-note").forEach(input => {
+        input.addEventListener("input", () => {
+            const index = Number(input.dataset.historyIndex);
+            if (!Number.isNaN(index) && spinHistory[index]) {
+                spinHistory[index].note = input.value;
+                saveHistory();
+            }
+        });
+    });
 }
 
 function clearHistory() {
