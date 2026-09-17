@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WoW Forever - Class & Spec Wheel</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #2b2418 0%,
+                    #100e0b 70%
+                );
+
+            color: #000;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        .container {
+            text-align: center;
+
+            width: 100%;
+            max-width: 900px;
+
+            padding: 30px 20px 60px;
+        }
+
+
+        h1 {
+            margin: 0 0 8px;
+
+            color: #ffd700;
+
+            font-size: 42px;
+
+            text-shadow:
+                0 3px 8px #000;
+        }
+
+
+        .subtitle {
+            color: #c9c9c9;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ==========================================
+           CLASS WHEEL
+        ========================================== */
+
+        .wheel-container {
+            position: relative;
+
+            width: 520px;
+            max-width: 90vw;
+
+            aspect-ratio: 1;
+
+            margin: 0 auto 30px;
+        }
+
+
+        canvas {
+            width: 100%;
+            height: 100%;
+
+            border-radius: 50%;
+        }
+
+
+        #wheel {
+            box-shadow:
+                0 0 0 8px #5c4522,
+                0 0 0 12px #17120b,
+                0 15px 50px rgba(0, 0, 0, 0.8);
+        }
+
+
+        /* ==========================================
+           POINTER
+        ========================================== */
+
+        .pointer {
+            position: absolute;
+
+            top: -17px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 0;
+            height: 0;
+
+            border-left:
+                22px solid transparent;
+
+            border-right:
+                22px solid transparent;
+
+            border-top:
+                48px solid #e8c547;
+
+            filter:
+                drop-shadow(
+                    0 3px 4px #000
+                );
+
+            z-index: 10;
+        }
+
+
+        /* ==========================================
+           CENTER BUTTON
+        ========================================== */
+
+        .center-button {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            border:
+                5px solid #d5af37;
+
+            background: #17120b;
+
+            color: #ffd700;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 0 15px
+                rgba(255, 215, 0, 0.35),
+
+                inset 0 0 15px #000;
+
+            z-index: 5;
+        }
+
+
+        .center-button:hover {
+            background: #292014;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.05);
+        }
+
+
+        .center-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+
+        /* ==========================================
+           SPIN BUTTON
+        ========================================== */
+
+        .spin-button {
+            padding:
+                14px 40px;
+
+            border:
+                2px solid #d5af37;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    #4b3b1e,
+                    #21190d
+                );
+
+            color: #ffd700;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                0.15s;
+        }
+
+
+        .spin-button:hover {
+            background:
+                linear-gradient(
+                    #655024,
+                    #30230f
+                );
+
+            box-shadow:
+                0 0 15px
+                rgba(255, 215, 0, 0.25);
+        }
+
+
+        .spin-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+
+        /* ==========================================
+           CLASS RESULT
+        ========================================== */
+
+        .result {
+            min-height: 90px;
+
+            margin-top: 20px;
+
+            padding:
+                15px 25px;
+
+            border:
+                2px solid #5c4522;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0, 0, 0, 0.45);
+        }
+
+
+        .result-label {
+            color: #aaa;
+
+            font-size: 14px;
+        }
+
+
+        #result {
+            color: #ffd700;
+
+            font-size: 32px;
+            font-weight: bold;
+
+            margin-top: 5px;
+        }
+
+
+        /* ==========================================
+           SPEC SECTION
+        ========================================== */
+
+        #specSection {
+            display: none;
+
+            margin-top: 50px;
+
+            padding-top: 35px;
+
+            border-top:
+                2px solid #5c4522;
+        }
+
+
+        #specTitle {
+            color: #ffd700;
+
+            font-size: 30px;
+
+            margin-bottom: 5px;
+
+            text-shadow:
+                0 2px 5px #000;
+        }
+
+
+        #specSubtitle {
+            color: #aaa;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ==========================================
+           SPEC WHEEL
+        ========================================== */
+
+        .spec-wheel-container {
+            position: relative;
+
+            width: 460px;
+            max-width: 82vw;
+
+            aspect-ratio: 1;
+
+            margin:
+                0 auto 25px;
+        }
+
+
+        #specWheel {
+            width: 100%;
+            height: 100%;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 7px #5c4522,
+                0 0 0 11px #17120b,
+                0 15px 40px
+                rgba(0, 0, 0, 0.7);
+        }
+
+
+        .spec-pointer {
+            position: absolute;
+
+            top: -15px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 0;
+            height: 0;
+
+            border-left:
+                20px solid transparent;
+
+            border-right:
+                20px solid transparent;
+
+            border-top:
+                42px solid #e8c547;
+
+            filter:
+                drop-shadow(
+                    0 3px 4px #000
+                );
+
+            z-index: 10;
+        }
+
+
+        .spec-center-button {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: 78px;
+            height: 78px;
+
+            border-radius: 50%;
+
+            border:
+                4px solid #d5af37;
+
+            background: #17120b;
+
+            color: #ffd700;
+
+            font-weight: bold;
+            font-size: 15px;
+
+            cursor: pointer;
+
+            z-index: 5;
+        }
+
+
+        .spec-center-button:hover {
+            transform:
+                translate(-50%, -50%)
+                scale(1.05);
+        }
+
+
+        .spec-center-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+
+        /* ==========================================
+           FINAL RESULT
+        ========================================== */
+
+        #finalResult {
+            display: none;
+
+            margin-top: 25px;
+
+            padding:
+                20px 25px;
+
+            border:
+                2px solid #d5af37;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0, 0, 0, 0.6);
+
+            box-shadow:
+                0 0 20px
+                rgba(255, 215, 0, 0.15);
+        }
+
+
+        .final-label {
+            color: #aaa;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+
+        #finalClass {
+            color: #ffd700;
+
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+
+        #finalSpec {
+            color: #fff;
+
+            font-size: 26px;
+            font-weight: bold;
+
+            margin-top: 5px;
+        }
+
+
+        .classes {
+            margin-top: 30px;
+
+            color: #999;
+
+            font-size: 13px;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 32px;
+            }
+
+
+            .wheel-container {
+                width: 90vw;
+            }
+
+
+            .spec-wheel-container {
+                width: 82vw;
+            }
+
+
+            .center-button {
+                width: 70px;
+                height: 70px;
+
+                font-size: 14px;
+            }
+
+
+            #result {
+                font-size: 26px;
+            }
+
+
+            #specTitle {
+                font-size: 24px;
+            }
+
+
+            #finalClass {
+                font-size: 25px;
+            }
+
+
+            #finalSpec {
+                font-size: 22px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <h1>
+        ⚔ WoW Forever ⚔
+    </h1>
+
+
+    <div class="subtitle">
+        Spin the wheel and let fate choose your class and specialization.
+    </div>
+
+
+    <!-- ==========================================
+         CLASS WHEEL
+    =========================================== -->
+
+    <div class="wheel-container">
+
+        <div class="pointer"></div>
+
+        <canvas
+            id="wheel"
+            width="600"
+            height="600">
+        </canvas>
+
+        <button
+            class="center-button"
+            id="centerSpin">
+
+            SPIN
+
+        </button>
+
+    </div>
+
+
+    <button
+        class="spin-button"
+        id="spinButton">
+
+        🎲 Choose My Class
+
+    </button>
+
+
+    <div class="result">
+
+        <div class="result-label">
+            YOUR CLASS
+        </div>
+
+        <div id="result">
+            ?
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SPEC WHEEL
+    =========================================== -->
+
+    <div id="specSection">
+
+        <div id="specTitle">
+            Choose Your Specialization
+        </div>
+
+
+        <div id="specSubtitle">
+            Spin to determine your specialization.
+        </div>
+
+
+        <div class="spec-wheel-container">
+
+            <div class="spec-pointer"></div>
+
+
+            <canvas
+                id="specWheel"
+                width="600"
+                height="600">
+            </canvas>
+
+
+            <button
+                class="spec-center-button"
+                id="specCenterSpin">
+
+                SPIN
+
+            </button>
+
+        </div>
+
+
+        <!-- Spec result -->
+
+        <div class="result">
+
+            <div class="result-label">
+                YOUR SPECIALIZATION
+            </div>
+
+            <div id="specResult">
+                ?
+            </div>
+
+        </div>
+
+
+        <!-- Final result -->
+
+        <div id="finalResult">
+
+            <div class="final-label">
+                YOUR FINAL CHARACTER
+            </div>
+
+            <div id="finalClass">
+                ?
+            </div>
+
+            <div id="finalSpec">
+                ?
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="classes">
+
+        Paladin • Hunter • Rogue • Priest • Shaman
+        • Mage • Warlock • Druid • Warrior
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   CLASS DATA
+===================================================== */
+
+
+const classes = [
+
+    {
+        name: "Paladin",
+
+        color: "#C79C6E",
+
+        specs: [
+            "Holy",
+            "Protection",
+            "Retribution"
+        ]
+    },
+
+
+    {
+        name: "Hunter",
+
+        color: "#ABD473",
+
+        specs: [
+            "Beast Mastery",
+            "Marksmanship",
+            "Survival"
+        ]
+    },
+
+
+    {
+        name: "Rogue",
+
+        color: "#FFF569",
+
+        specs: [
+            "Assassination",
+            "Combat",
+            "Subtlety"
+        ]
+    },
+
+
+    {
+        name: "Priest",
+
+        color: "#FFFFFF",
+
+        specs: [
+            "Discipline",
+            "Holy",
+            "Shadow"
+        ]
+    },
+
+
+    {
+        name: "Shaman",
+
+        color: "#0070DE",
+
+        specs: [
+            "Elemental",
+            "Enhancement",
+            "Restoration"
+        ]
+    },
+
+
+    {
+        name: "Mage",
+
+        color: "#69CCF0",
+
+        specs: [
+            "Arcane",
+            "Fire",
+            "Frost"
+        ]
+    },
+
+
+    {
+        name: "Warlock",
+
+        color: "#9482C9",
+
+        specs: [
+            "Affliction",
+            "Demonology",
+            "Destruction"
+        ]
+    },
+
+
+    {
+        name: "Druid",
+
+        color: "#FF7D0A",
+
+        specs: [
+            "Balance",
+            "Feral",
+            "Restoration"
+            "Guardian"
+        ]
+    },
+
+
+    {
+        name: "Warrior",
+
+        /*
+         * Brown Warrior background
+         */
+
+        color: "#8B4513",
+
+        specs: [
+            "Arms",
+            "Fury",
+            "Protection"
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   CLASS WHEEL VARIABLES
+===================================================== */
+
+
+const canvas =
+    document.getElementById(
+        "wheel"
+    );
+
+
+const ctx =
+    canvas.getContext("2d");
+
+
+const spinButton =
+    document.getElementById(
+        "spinButton"
+    );
+
+
+const centerSpin =
+    document.getElementById(
+        "centerSpin"
+    );
+
+
+const result =
+    document.getElementById(
+        "result"
+    );
+
+
+let classRotation = 0;
+
+let classSpinning = false;
+
+let selectedClass = null;
+
+
+/* =====================================================
+   DRAW CLASS WHEEL
+===================================================== */
+
+
+function drawClassWheel() {
+
+    const centerX =
+        canvas.width / 2;
+
+    const centerY =
+        canvas.height / 2;
+
+    const radius =
+        canvas.width / 2;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    const slice =
+        (Math.PI * 2) /
+        classes.length;
+
+
+    classes.forEach(
+        (classData, i) => {
+
+            const startAngle =
+                classRotation +
+                i * slice -
+                Math.PI / 2;
+
+
+            const endAngle =
+                startAngle +
+                slice;
+
+
+            /* Slice */
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                centerX,
+                centerY
+            );
+
+            ctx.arc(
+                centerX,
+                centerY,
+                radius,
+                startAngle,
+                endAngle
+            );
+
+            ctx.closePath();
+
+
+            ctx.fillStyle =
+                classData.color;
+
+            ctx.fill();
+
+
+            /* Border */
+
+            ctx.strokeStyle =
+                "#21180c";
+
+            ctx.lineWidth = 5;
+
+            ctx.stroke();
+
+
+            /* Text position */
+
+            const textAngle =
+                startAngle +
+                slice / 2;
+
+
+            const textRadius =
+                radius * 0.67;
+
+
+            const textX =
+                centerX +
+                Math.cos(textAngle) *
+                textRadius;
+
+
+            const textY =
+                centerY +
+                Math.sin(textAngle) *
+                textRadius;
+
+
+            ctx.save();
+
+
+            ctx.translate(
+                textX,
+                textY
+            );
+
+
+            let textRotation =
+                textAngle;
+
+
+            /*
+             * Keep text upright
+             */
+
+            if (
+                textRotation >
+                    Math.PI / 2 &&
+                textRotation <
+                    Math.PI * 1.5
+            ) {
+
+                textRotation +=
+                    Math.PI;
+            }
+
+
+            ctx.rotate(
+                textRotation
+            );
+
+
+            ctx.font =
+                "bold 25px Arial";
+
+            ctx.textAlign =
+                "center";
+
+            ctx.textBaseline =
+                "middle";
+
+
+            /*
+             * White outline
+             */
+
+            ctx.lineWidth = 6;
+
+            ctx.strokeStyle =
+                "#ffffff";
+
+            ctx.strokeText(
+                classData.name,
+                0,
+                0
+            );
+
+
+            /*
+             * Black text
+             */
+
+            ctx.fillStyle =
+                "#000000";
+
+            ctx.fillText(
+                classData.name,
+                0,
+                0
+            );
+
+
+            ctx.restore();
+
+        }
+    );
+
+
+    /* Center */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        centerX,
+        centerY,
+        45,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.fillStyle =
+        "#17120b";
+
+    ctx.fill();
+
+
+    ctx.strokeStyle =
+        "#d5af37";
+
+    ctx.lineWidth = 5;
+
+    ctx.stroke();
+
+}
+
+
+/* =====================================================
+   SPIN CLASS WHEEL
+===================================================== */
+
+
+function spinClassWheel() {
+
+    if (classSpinning)
+        return;
+
+
+    classSpinning = true;
+
+
+    spinButton.disabled =
+        true;
+
+    centerSpin.disabled =
+        true;
+
+
+    result.textContent =
+        "Spinning...";
+
+
+    /*
+     * Hide previous spec wheel
+     */
+
+    document.getElementById(
+        "specSection"
+    ).style.display =
+        "none";
+
+
+    const fullSpins =
+        5 +
+        Math.floor(
+            Math.random() * 5
+        );
+
+
+    const randomAngle =
+        Math.random() *
+        Math.PI * 2;
+
+
+    const startRotation =
+        classRotation;
+
+
+    const targetRotation =
+        classRotation +
+        fullSpins * Math.PI * 2 +
+        randomAngle;
+
+
+    const duration =
+        4500;
+
+
+    const startTime =
+        performance.now();
+
+
+    function animate(
+        currentTime
+    ) {
+
+        const elapsed =
+            currentTime -
+            startTime;
+
+
+        const progress =
+            Math.min(
+                elapsed / duration,
+                1
+            );
+
+
+        /*
+         * Ease-out animation
+         */
+
+        const eased =
+            1 -
+            Math.pow(
+                1 - progress,
+                3
+            );
+
+
+        classRotation =
+            startRotation +
+            (
+                targetRotation -
+                startRotation
+            ) * eased;
+
+
+        drawClassWheel();
+
+
+        if (
+            progress < 1
+        ) {
+
+            requestAnimationFrame(
+                animate
+            );
+
+        } else {
+
+            classRotation %=
+                Math.PI * 2;
+
+
+            determineClassWinner();
+
+
+            classSpinning =
+                false;
+
+
+            spinButton.disabled =
+                false;
+
+            centerSpin.disabled =
+                false;
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+/* =====================================================
+   DETERMINE CLASS
+===================================================== */
+
+
+function determineClassWinner() {
+
+    let normalizedRotation =
+        classRotation %
+        (Math.PI * 2);
+
+
+    if (
+        normalizedRotation < 0
+    ) {
+
+        normalizedRotation +=
+            Math.PI * 2;
+
+    }
+
+
+    const pointerAngle =
+        (
+            Math.PI * 2 -
+            normalizedRotation
+        ) %
+        (Math.PI * 2);
+
+
+    const slice =
+        (Math.PI * 2) /
+        classes.length;
+
+
+    const index =
+        Math.floor(
+            pointerAngle /
+            slice
+        );
+
+
+    selectedClass =
+        classes[index];
+
+
+    result.textContent =
+        selectedClass.name;
+
+
+    result.animate(
+        [
+            {
+                transform:
+                    "scale(1)"
+            },
+
+            {
+                transform:
+                    "scale(1.2)"
+            },
+
+            {
+                transform:
+                    "scale(1)"
+            }
+        ],
+        {
+            duration: 500
+        }
+    );
+
+
+    /*
+     * Show the appropriate
+     * specialization wheel.
+     */
+
+    setupSpecWheel(
+        selectedClass
+    );
+
+}
+
+
+/* =====================================================
+   SPEC WHEEL VARIABLES
+===================================================== */
+
+
+const specCanvas =
+    document.getElementById(
+        "specWheel"
+    );
+
+
+const specCtx =
+    specCanvas.getContext(
+        "2d"
+    );
+
+
+const specSection =
+    document.getElementById(
+        "specSection"
+    );
+
+
+const specTitle =
+    document.getElementById(
+        "specTitle"
+    );
+
+
+const specResult =
+    document.getElementById(
+        "specResult"
+    );
+
+
+const specCenterSpin =
+    document.getElementById(
+        "specCenterSpin"
+    );
+
+
+const finalResult =
+    document.getElementById(
+        "finalResult"
+    );
+
+
+const finalClass =
+    document.getElementById(
+        "finalClass"
+    );
+
+
+const finalSpec =
+    document.getElementById(
+        "finalSpec"
+    );
+
+
+let specs = [];
+
+let specRotation = 0;
+
+let specSpinning = false;
+
+
+/* =====================================================
+   SET UP SPEC WHEEL
+===================================================== */
+
+
+function setupSpecWheel(
+    classData
+) {
+
+    specs =
+        classData.specs;
+
+
+    specRotation = 0;
+
+
+    specResult.textContent =
+        "?";
+
+
+    finalResult.style.display =
+        "none";
+
+
+    specTitle.textContent =
+        `${classData.name} — Choose Your Specialization`;
+
+
+    specSection.style.display =
+        "block";
+
+
+    drawSpecWheel();
+
+
+    /*
+     * Automatically move the
+     * page down to the new wheel.
+     */
+
+    setTimeout(
+        () => {
+
+            specSection.scrollIntoView({
+
+                behavior:
+                    "smooth",
+
+                block:
+                    "center"
+
+            });
+
+        },
+        300
+    );
+
+}
+
+
+/* =====================================================
+   DRAW SPEC WHEEL
+===================================================== */
+
+
+function drawSpecWheel() {
+
+    const centerX =
+        specCanvas.width / 2;
+
+    const centerY =
+        specCanvas.height / 2;
+
+    const radius =
+        specCanvas.width / 2;
+
+
+    specCtx.clearRect(
+        0,
+        0,
+        specCanvas.width,
+        specCanvas.height
+    );
+
+
+    const slice =
+        (Math.PI * 2) /
+        specs.length;
+
+
+    specs.forEach(
+        (spec, i) => {
+
+            const startAngle =
+                specRotation +
+                i * slice -
+                Math.PI / 2;
+
+
+            const endAngle =
+                startAngle +
+                slice;
+
+
+            /* Slice */
+
+            specCtx.beginPath();
+
+            specCtx.moveTo(
+                centerX,
+                centerY
+            );
+
+            specCtx.arc(
+                centerX,
+                centerY,
+                radius,
+                startAngle,
+                endAngle
+            );
+
+            specCtx.closePath();
+
+
+            /*
+             * Give every spec a
+             * slightly different
+             * WoW-inspired color.
+             */
+
+            const specColors = [
+
+                "#C41E3A",
+                "#A330C9",
+                "#1EFF00",
+                "#0070DE",
+                "#FF7D0A",
+                "#69CCF0"
+
+            ];
+
+
+            specCtx.fillStyle =
+                specColors[
+                    i %
+                    specColors.length
+                ];
+
+
+            specCtx.fill();
+
+
+            /* Border */
+
+            specCtx.strokeStyle =
+                "#21180c";
+
+            specCtx.lineWidth = 6;
+
+            specCtx.stroke();
+
+
+            /* Text */
+
+            const textAngle =
+                startAngle +
+                slice / 2;
+
+
+            const textRadius =
+                radius * 0.62;
+
+
+            const textX =
+                centerX +
+                Math.cos(textAngle) *
+                textRadius;
+
+
+            const textY =
+                centerY +
+                Math.sin(textAngle) *
+                textRadius;
+
+
+            specCtx.save();
+
+
+            specCtx.translate(
+                textX,
+                textY
+            );
+
+
+            let textRotation =
+                textAngle;
+
+
+            if (
+                textRotation >
+                    Math.PI / 2 &&
+                textRotation <
+                    Math.PI * 1.5
+            ) {
+
+                textRotation +=
+                    Math.PI;
+
+            }
+
+
+            specCtx.rotate(
+                textRotation
+            );
+
+
+            /*
+             * Smaller font for
+             * longer spec names.
+             */
+
+            let fontSize = 30;
+
+
+            if (
+                spec.length > 12
+            ) {
+
+                fontSize = 24;
+
+            }
+
+
+            specCtx.font =
+                `bold ${fontSize}px Arial`;
+
+
+            specCtx.textAlign =
+                "center";
+
+            specCtx.textBaseline =
+                "middle";
+
+
+            /*
+             * White outline
+             */
+
+            specCtx.lineWidth = 7;
+
+            specCtx.strokeStyle =
+                "#ffffff";
+
+
+            specCtx.strokeText(
+                spec,
+                0,
+                0
+            );
+
+
+            /*
+             * Black text
+             */
+
+            specCtx.fillStyle =
+                "#000000";
+
+
+            specCtx.fillText(
+                spec,
+                0,
+                0
+            );
+
+
+            specCtx.restore();
+
+        }
+    );
+
+
+    /* Center */
+
+    specCtx.beginPath();
+
+    specCtx.arc(
+        centerX,
+        centerY,
+        38,
+        0,
+        Math.PI * 2
+    );
+
+
+    specCtx.fillStyle =
+        "#17120b";
+
+    specCtx.fill();
+
+
+    specCtx.strokeStyle =
+        "#d5af37";
+
+    specCtx.lineWidth = 5;
+
+    specCtx.stroke();
+
+}
+
+
+/* =====================================================
+   SPIN SPEC WHEEL
+===================================================== */
+
+
+function spinSpecWheel() {
+
+    if (
+        specSpinning ||
+        specs.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    specSpinning =
+        true;
+
+
+    specCenterSpin.disabled =
+        true;
+
+
+    specResult.textContent =
+        "Spinning...";
+
+
+    finalResult.style.display =
+        "none";
+
+
+    const fullSpins =
+        5 +
+        Math.floor(
+            Math.random() * 4
+        );
+
+
+    const randomAngle =
+        Math.random() *
+        Math.PI * 2;
+
+
+    const startRotation =
+        specRotation;
+
+
+    const targetRotation =
+        specRotation +
+        fullSpins * Math.PI * 2 +
+        randomAngle;
+
+
+    const duration =
+        4000;
+
+
+    const startTime =
+        performance.now();
+
+
+    function animate(
+        currentTime
+    ) {
+
+        const elapsed =
+            currentTime -
+            startTime;
+
+
+        const progress =
+            Math.min(
+                elapsed / duration,
+                1
+            );
+
+
+        const eased =
+            1 -
+            Math.pow(
+                1 - progress,
+                3
+            );
+
+
+        specRotation =
+            startRotation +
+            (
+                targetRotation -
+                startRotation
+            ) * eased;
+
+
+        drawSpecWheel();
+
+
+        if (
+            progress < 1
+        ) {
+
+            requestAnimationFrame(
+                animate
+            );
+
+        } else {
+
+            specRotation %=
+                Math.PI * 2;
+
+
+            determineSpecWinner();
+
+
+            specSpinning =
+                false;
+
+
+            specCenterSpin.disabled =
+                false;
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+/* =====================================================
+   DETERMINE SPEC WINNER
+===================================================== */
+
+
+function determineSpecWinner() {
+
+    let normalizedRotation =
+        specRotation %
+        (Math.PI * 2);
+
+
+    if (
+        normalizedRotation < 0
+    ) {
+
+        normalizedRotation +=
+            Math.PI * 2;
+
+    }
+
+
+    const pointerAngle =
+        (
+            Math.PI * 2 -
+            normalizedRotation
+        ) %
+        (Math.PI * 2);
+
+
+    const slice =
+        (Math.PI * 2) /
+        specs.length;
+
+
+    const index =
+        Math.floor(
+            pointerAngle /
+            slice
+        );
+
+
+    const selectedSpec =
+        specs[index];
+
+
+    specResult.textContent =
+        selectedSpec;
+
+
+    /*
+     * Final result
+     */
+
+    finalClass.textContent =
+        selectedClass.name;
+
+
+    finalSpec.textContent =
+        selectedSpec;
+
+
+    finalResult.style.display =
+        "block";
+
+
+    finalResult.animate(
+        [
+            {
+                transform:
+                    "scale(0.8)",
+
+                opacity: 0
+            },
+
+            {
+                transform:
+                    "scale(1.1)",
+
+                opacity: 1
+            },
+
+            {
+                transform:
+                    "scale(1)",
+
+                opacity: 1
+            }
+
+        ],
+        {
+            duration: 700
+        }
+    );
+
+
+    /*
+     * Scroll to final result
+     */
+
+    setTimeout(
+        () => {
+
+            finalResult.scrollIntoView({
+
+                behavior:
+                    "smooth",
+
+                block:
+                    "center"
+
+            });
+
+        },
+        250
+    );
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+
+spinButton.addEventListener(
+    "click",
+    spinClassWheel
+);
+
+
+centerSpin.addEventListener(
+    "click",
+    spinClassWheel
+);
+
+
+specCenterSpin.addEventListener(
+    "click",
+    spinSpecWheel
+);
+
+
+/* =====================================================
+   INITIAL DRAW
+===================================================== */
+
+
+drawClassWheel();
+
+</script>
+
+</body>
+</html>
