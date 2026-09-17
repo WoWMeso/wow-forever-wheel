@@ -256,9 +256,9 @@
         }
 
         .result-label {
-            color: #aaa;
+            color: #ffffff;
 
-            font-size: 14px;
+            font-size: 18px;
         }
 
         #result {
@@ -553,22 +553,13 @@
             text-align: center;
             font-weight: bold;
         }
-
-        .history-icon,
-        .history-spec-icon {
+        .history-icon {
             width: 42px;
             height: 42px;
             border-radius: 6px;
             border: 1px solid #806529;
             object-fit: cover;
             flex-shrink: 0;
-        }
-
-        .history-spec-icon {
-            width: 28px;
-            height: 28px;
-            vertical-align: middle;
-            margin-right: 5px;
         }
 
         .history-info { flex: 1; min-width: 0; }
@@ -619,7 +610,31 @@
             }
         }
 
-    </style>
+    
+/* Specialization value */
+#specResult .result-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+</style>
+
+<style id="specialization-text-fix">
+/* Specialization result: larger, bold, white */
+#specResult {
+  color: #ffffff !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+
+#specResult * {
+  color: #ffffff !important;
+  font-size: inherit !important;
+  font-weight: 700 !important;
+}
+</style>
+
 </head>
 
 <body>
@@ -885,43 +900,11 @@ const classes = [
    CLASS & SPEC ICONS
 ===================================================== */
 
-const specIcons = {
-    "Holy": "https://wow.zamimg.com/images/wow/icons/large/holy_shock.jpg",
-    "Protection": "https://wow.zamimg.com/images/wow/icons/large/shield_of_the_righteous.jpg",
-    "Retribution": "https://wow.zamimg.com/images/wow/icons/large/crusader_strike.jpg",
-    "Beast Mastery": "https://wow.zamimg.com/images/wow/icons/large/beast_cleave.jpg",
-    "Marksmanship": "https://wow.zamimg.com/images/wow/icons/large/aimed_shot.jpg",
-    "Survival": "https://wow.zamimg.com/images/wow/icons/large/wildfire_bomb.jpg",
-    "Assassination": "https://wow.zamimg.com/images/wow/icons/large/mutilate.jpg",
-    "Combat": "https://wow.zamimg.com/images/wow/icons/large/sinister_strike.jpg",
-    "Subtlety": "https://wow.zamimg.com/images/wow/icons/large/shadowstrike.jpg",
-    "Discipline": "https://wow.zamimg.com/images/wow/icons/large/power_word_shield.jpg",
-    "Shadow": "https://wow.zamimg.com/images/wow/icons/large/shadow_word_pain.jpg",
-    "Elemental": "https://wow.zamimg.com/images/wow/icons/large/lightning_bolt.jpg",
-    "Enhancement": "https://wow.zamimg.com/images/wow/icons/large/stormstrike.jpg",
-    "Restoration": "https://wow.zamimg.com/images/wow/icons/large/healing_stream.jpg",
-    "Arcane": "https://wow.zamimg.com/images/wow/icons/large/arcane_blast.jpg",
-    "Fire": "https://wow.zamimg.com/images/wow/icons/large/fireball.jpg",
-    "Frost": "https://wow.zamimg.com/images/wow/icons/large/frostbolt.jpg",
-    "Affliction": "https://wow.zamimg.com/images/wow/icons/large/unstable_affliction.jpg",
-    "Demonology": "https://wow.zamimg.com/images/wow/icons/large/hand_of_guldan.jpg",
-    "Destruction": "https://wow.zamimg.com/images/wow/icons/large/chaos_bolt.jpg",
-    "Balance": "https://wow.zamimg.com/images/wow/icons/large/starsurge.jpg",
-    "Feral": "https://wow.zamimg.com/images/wow/icons/large/rake.jpg",
-    "Guardian": "https://wow.zamimg.com/images/wow/icons/large/ironfur.jpg",
-    "Arms": "https://wow.zamimg.com/images/wow/icons/large/mortal_strike.jpg",
-    "Fury": "https://wow.zamimg.com/images/wow/icons/large/raging_blow.jpg"
-};
-
 const historyKey = "wowForeverRouletteHistory";
 const maxHistoryEntries = 25;
 
 function iconUrlForClass(classData) {
     return classData && classData.icon ? classData.icon : "";
-}
-
-function iconUrlForSpec(spec) {
-    return specIcons[spec] || "";
 }
 
 function iconMarkup(url, alt, size = 42) {
@@ -951,7 +934,6 @@ function addHistoryEntry(classData, spec) {
         className: classData.name,
         classIcon: iconUrlForClass(classData),
         specName: spec,
-        specIcon: iconUrlForSpec(spec),
         date: new Date().toLocaleString()
     });
     spinHistory = spinHistory.slice(0, maxHistoryEntries);
@@ -975,7 +957,6 @@ function renderHistory() {
             <div class="history-info">
                 <div class="history-class">${entry.className}</div>
                 <div class="history-spec">
-                    <img src="${entry.specIcon}" alt="${entry.specName} icon" class="history-spec-icon">
                     ${entry.specName}
                 </div>
                 <div class="history-date">${entry.date}</div>
@@ -1906,8 +1887,8 @@ function determineSpecWinner() {
     const selectedSpec =
         specs[index];
 
-    specResult.innerHTML =
-        `<span class="result-with-icon">${iconMarkup(iconUrlForSpec(selectedSpec), selectedSpec, 48)}<span>${selectedSpec}</span></span>`;
+    specResult.textContent =
+        selectedSpec;
 
     /*
      * Final result
